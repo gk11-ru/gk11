@@ -1,0 +1,26 @@
+%include ('tpl/01.tpl', title='login')
+
+<body>
+<div class="row">
+    <div class="small-12 columns">
+
+<div class="panel callout"><h4>Вход
+<a href="/" class="right"><i class="fa fa-home"></i></a></h4>
+</div>
+
+        <form method="post" action="/user/login" />
+            <input type="hidden" name="redir" value="{{rq.redir}}" />
+            <input type="text" value="" name="uname" id="uname" placeholder="Имя пользователя" />
+            <input type="password" value="" name="upass" id="upass" placeholder="Пароль" />
+            <input type="submit" value="Войти" class="button success" />
+        </form>
+    </div>
+</div>
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

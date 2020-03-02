@@ -1,0 +1,34 @@
+%include ('tpl/01.tpl', title='reg user')
+
+<body>
+
+<div class="panel callout"><h4>Регистрация нового пользователя
+<a href="/" class="right"><i class="fa fa-home"></i></a></h4></div>
+
+<br />
+
+<div class="row">
+    <div class="small-12 columns">
+
+        <form method="post" action="/user/adduser" />
+            <label for="uname" class="right">
+              Имя пользователя
+            </label>
+            <input type="text" value="" name="uname" id="uname" />
+            <label for="upass" class="right">
+              Пароль
+            </label>
+            <input type="password" value="" name="upass" id="upass" />
+            <input type="hidden" name="acc" value="{{acc}}" />
+            <input type="submit" value="Сохранить" class="button" />
+        </form>
+    </div>
+</div>
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

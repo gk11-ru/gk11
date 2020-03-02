@@ -1,0 +1,56 @@
+%from wh import rend
+%from conf import SHOWMSGFROM as SM
+
+%include ('tpl/01.tpl', ea=ea, title=u'Ответ в эху %s' % ea)
+
+<body>
+
+<div class="row column">
+        <strong><a href="/:{{ea}}" class="secondary button">
+          :{{ea}}
+        </a></strong>
+     <span class="float-right">
+        <a href="/user/me" class="button">{{u.uname}}</a>
+        <a href="/" title="Стартовая страница" class="secondary button"><i class="fa fa-home"></i></a>
+      </span>
+</div>
+
+
+<div class="row"><div class="large-12 columns">
+
+%zubj = zo if get('zo') else 'Re: %s' % rmsg.title if repto else ''
+%if zubj and rmsg.title.startswith('Re: '):
+%zubj = rmsg.title
+%end
+
+%if repto:
+<div class="callout">{{! rend(rmsg.txt) }}</div>
+%else:
+<h4>Новое сообщение</h4>
+%end
+
+<form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="/a/savemsg/{{ea}}">
+        <input type="hidden" name="repto" value="{{repto}}" />
+        <input type="hidden" name="uhash" value="{{u.uhash}}" />
+%shownow = True if SM == 'always' else True if (not repto and SM == 'newmsg') else False
+%if shownow:
+        <input type="text" name="msgto" value="{{rmsg.msgfrom if repto else 'All'}}" class="form-control" placeholder="Кому"/>
+%else:
+        <input type="hidden" name="msgto" value="{{rmsg.msgfrom if repto else 'All'}}" />
+%end
+        <input type="text" name="title" value="{{zubj}}" class="form-control" id="subjInput" placeholder="Тема сообщения">
+        <textarea name="outtxt" class="form-control" style="height:300px" placeholder="Текст сообщения"></textarea>
+
+
+  <button class="button success" type="submit">Отправить комментарий</button>
+</form>
+
+    </div></div>
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

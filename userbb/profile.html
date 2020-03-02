@@ -1,0 +1,29 @@
+%import conf
+%include ('tpl/01.tpl', title='reg user')
+
+<body>
+<div class="row">
+    <div class="small-12 columns">
+        <div align="right">
+            <a href="/user/logout" class="alert button">logout</a>
+            <a href="/" class="button">home</a>
+        </div>
+
+
+
+        <div class="callout">
+        <h3>Пользователь: {{u.uname}}</h3>
+            <p>authstr: <strong>{{u.uhash}}</strong></p>
+            <p>Ответы вам: <a href="/for/{{u.uname}}">/for/{{u.uname}}</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RSS ответов вам: <a href="/rssfor/{{u.uname}}">/rssfor/{{u.uname}}</a></p>
+            <p><a href="/query">Выборка по разным критериям (юзеры, даты, эхи)</a></p>
+
+    </div>
+</div>
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

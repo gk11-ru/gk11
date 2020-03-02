@@ -1,0 +1,74 @@
+%import wh
+%include ('tpl/01.tpl', title = u'Query')
+
+  <body>
+<div class="row">
+    <div class="small-12 columns">
+        <a href="/" title="Стартовая страница" class="secondary button"><i class="fa fa-home"></i> Стартовая страница</a>
+        <a href="/authors" title="Показать всех авторов и число сообщений от них" class="alert button"><i class="fa fa-user"></i> Автора!</a>
+        <span class="pull-right"><h3>Выборка ({{cnt}})</h3></span>
+    </div>
+</div>
+
+<form method="GET" action="/query">
+  <div class="row">
+    <div class="medium-6 columns">
+        <input type="text" placeholder="Сообщение от" name="msgfrom" value="{{rq.msgfrom}}">
+    </div>
+    <div class="medium-6 columns">
+        <input type="text" placeholder="Сообщение для" name="msgto" value="{{rq.msgto}}">
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+        <input type="text" placeholder="Дата ОТ, в формате ДД/ММ/ГГ" name="dfrom" value="{{rq.dfrom}}">
+    </div>
+    <div class="medium-6 columns">
+        <input type="text" placeholder="Дата ДО, в формате ДД/ММ/ГГ" name="dto" value="{{rq.dto}}">
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+        <input type="text" placeholder="Список эх, разделённых пробелом: std.club obsd.11" name="ea" value="{{rq.ea}}">
+    </div>
+    <div class="medium-6 columns">
+        <input type="submit" class="button expanded" value="Выборка">
+    </div>
+  </div>
+</form>
+
+    <div class="row"><div class="small-12 columns">
+
+%if lst:
+%for mo in lst:
+
+<br />
+<a name="{{mo.mid}}"></a>
+        <div class="callout">
+            <p>
+            <strong><a href="/:{{mo.echoarea}}#{{mo.mid}}">:{{mo.echoarea}}</a></strong>
+            <strong>{{mo.title}}</strong>
+            <span class="fa fa-clock-o"></span> {{wh.dateg(mo.date,'%d/%m/%y %H:%M')}} UTC</span>
+            <span class="pull-right">
+                <strong title="{{mo.addr}}">{{mo.msgfrom}}</strong> to {{mo.msgto}}
+                <a href="/q/{{mo.mid}}">{{mo.mid[:6]}}</a>
+            </span>
+            </p>
+
+            <p>{{! wh.rend(mo.txt) }}</p>
+        </div>
+
+%end
+%end
+
+    </div></div>
+
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

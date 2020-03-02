@@ -1,0 +1,67 @@
+%import wh
+%from bbdata import gts, app_rq
+%import conf
+
+%include ('tpl/01.tpl', title='index page')
+
+<body>
+
+
+<div class="row">
+
+<div class="large-8 medium-9 small-12 columns">
+<br />
+
+%HL = ':'.join(open('%s/hidden.txt' % conf.DATA).read().split())
+%for mo in app_rq('afrom/%s/lim/50/noecho/%s' % (gts() - 259200, HL)):
+
+    <a style="margin-bottom: 2px" class="secondary button" href="/:{{mo.echoarea}}"><strong>:{{mo.echoarea}}</strong>    <!-- len --></a>
+    <a style="margin-bottom: 2px" class="secondary button float-right" href="/reply/{{mo.echoarea}}/{{mo.mid}}" title="Ответить на это сообщение"><i class="fa fa-reply"> ответить</i></a>
+
+<div class="callout {{'primary' if not mo.repto else ''}}">
+<p><strong title="{{mo.addr}}">{{mo.msgfrom}}</strong> to {{mo.msgto}}
+@ <strong>{{mo.title}}</strong> <nobr><i class="fa fa-clock-o"></i> {{wh.dateg(mo.date,'%d/%m %H:%M')}} UTC</nobr></p>
+<p>{{! wh.rend(mo.txt) }}</p>
+</div>
+<br />
+%end
+
+</div>
+<div class="large-4 medium-3 small-12 columns">
+
+<div class="row">
+<div class="expanded button-group">
+<a class="button success" href="/info.html"><i class="fa fa-question-circle"></i> Информация</a>
+<a class="button alert" href="/"><i class="fa fa-refresh"></i> Обновить страницу</a>
+</div>
+
+<br />
+
+%for ea,cnt in app_rq('echolist/public/cnt/1'):
+<a class="secondary button radius expanded" href="/:{{ea}}">{{ea}} <i class="fa fa-envelope-o"></i> {{cnt}}</a>
+%end
+
+%if u:
+<a href="/user/me" class="button expanded">{{u.uname}} {{'*' if u.root else ''}}</a>
+%else:
+<a href="/user/reguser" class="button expanded">register</a>
+<a href="/user/me" class="button success expanded">login</a>
+%end
+
+<a href="/litelist" class="button secondary expanded">lite-версия</a>
+
+<div class="callout">
+%for n in app_rq('topics/1/lim/11'):
+<p><a href="/topic/{{n.mid}}"><strong>{{n.title}}</strong></a> <small><a href="/:{{n.echoarea}}">:{{n.echoarea}}</a></small></p>
+%end
+</div>
+
+  </div></div>
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

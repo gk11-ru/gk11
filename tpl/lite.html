@@ -1,0 +1,44 @@
+%import wh
+<html><head>
+<meta charset="utf-8" />
+<title>:{{ea}} лайт</title>
+</head>
+<body>
+
+<p><a href="/lite/{{ea}}">Обновить</a> ... <a href="/litelist">Список эх</a> ... <a href="/">Основной интерфейс</a> ... <a href="/:{{ea}}">:{{ea}}</a></p>
+
+%for n in msgs:
+<div align="right">{{n.title}} // <strong style="{{'color:red' if u and n.msgfrom == u.uname else ''}}">{{n.msgfrom}}</strong> <small>{{wh.datef(n.date,'%d/%m %H:%M:%S')}}</small> <a href="/lite/reply/{{ea}}/{{n.mid}}">reply</a></div>
+<p><br />{{! wh.rend(n.txt)}}</p>
+<hr>
+%end
+
+%if rmsg.txt:
+
+{{! wh.rend(rmsg.txt) }}
+
+%end
+
+<hr>
+
+<form method="post" action="/a/savemsg/{{ea}}" id="form1">
+        <input type="hidden" name="repto" value="{{rmsg.mid}}" />
+        <input type="hidden" name="beback" value="/lite/{{ea}}" />
+        <input type="hidden" name="msgfrom" value="{{u.uname if u else ''}}" />
+        <input type="hidden" name="msgto" value="{{rmsg.msgfrom or 'All'}}" />
+        <input type="text" name="title" value="{{ 'Re: ' + rmsg.title if rmsg.title else '' }}" style="width:100%" placeholder="Тема сообщения">
+        <textarea name="outtxt" style="margin:0;height:80px;width:100%"></textarea>
+        <input type="hidden" name="uhash" value="{{u.uhash}}">
+
+%if u:
+    {{u.uname}} 
+%else:
+    <a href="/user/me">LOGIN</a>
+%end
+<input type="submit" value="Отправить" />
+</form>
+
+
+
+  </body>
+</html>

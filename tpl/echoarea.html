@@ -1,0 +1,47 @@
+%import wh
+
+%include ('tpl/01.tpl', ea=ea, title=':' + ea, cnt=cnt)
+
+<body>
+
+%include ('tpl/01m.tpl', ea=ea, u=u, page=page, opts=opts)
+
+<div class="row">
+    <div class="small-12 columns">
+
+%for mo in msgs:
+
+<br />
+<a name="{{mo.mid}}"></a>
+        <div class="callout {{'' if mo.repto else 'primary'}}">
+            <p>
+%if mo.repto:
+             <a href="#{{mo.repto}}">{{mo.title}}</a>
+%else:
+            <strong>{{mo.title}}</strong>
+%end
+            <i class="fa fa-clock-o" title="{{wh.dateg(mo.date,'%d/%m/%Y %H:%M')}} UTC"></i> {{wh.datef(mo.date, '%d/%m/%y %H:%M')}}
+            <a href="/topic/{{mo.topicid}}" title="Все сообщения по этой теме"><i class="fa fa-tree"></i></a>
+            <span class="pull-right">
+            <a href="/q/{{mo.mid}}" title="Ссылка на это сообщение"><i class="fa fa-eye"></i></a>
+            <strong title="{{mo.addr}}">{{mo.msgfrom}}</strong> to {{mo.msgto}} //
+            <a href="/reply/{{mo.echoarea}}/{{mo.mid}}" title="Ответить на это сообщение"><i class="fa fa-reply"></i> ответить</a></span></p>
+            <p>{{! wh.rend(mo.txt) }}</p>
+        </div>
+
+
+%end
+
+
+
+    </div></div>
+
+<footer class="float-right">{{! wh.render_pager(cnt,int(page),ea) }}</footer>
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

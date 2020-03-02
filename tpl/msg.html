@@ -1,0 +1,56 @@
+%import wh
+%include ('tpl/01.tpl', title = 'msg: %s' % msgs if not defined('deftitle') else deftitle)
+
+  <body>
+<div class="row">
+    <div class="small-12 columns">
+<span class="pull-right">
+        <a href="/" title="Стартовая страница" class="alert button"><i class="fa fa-home"></i> Стартовая страница</a>
+</span>
+
+    </div>
+</div>
+
+
+    <div class="row"><div class="small-12 columns">
+
+%for n in msgs.split(':'):
+%if n in lst:
+%mo = lst[n]
+
+<br />
+<a name="{{mo.mid}}"></a>
+        <div class="callout">
+            <p>
+            <strong><a href="/:{{mo.echoarea}}#{{mo.mid}}">:{{mo.echoarea}}</a></strong>
+            <strong>{{mo.title}}</strong>
+            <span class="fa fa-clock-o"></span> {{wh.dateg(mo.date,'%d/%m %H:%M')}} UTC</span>
+            <span class="pull-right">
+%if u and u.root:
+<a href="/del/{{mo.mid}}" title="Удалить сообщение" style="color:red">x</a>
+%end
+            <strong title="{{mo.addr}}">{{mo.msgfrom}}</strong> to {{mo.msgto}} //
+            <a href="/reply/{{mo.echoarea}}/{{mo.mid}}" title="Ответить на это сообщение"><i class="fa fa-reply"></i> ответить</a>
+        </span>
+            </p>
+
+            <p>{{! wh.rend(mo.txt) }}</p>
+        </div>
+
+%else:
+<br />
+<div class="alert callout">Сообщение {{n}} удалено или находится вне зоны обслуживания</div>
+%end
+%end
+
+
+    </div></div>
+
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>

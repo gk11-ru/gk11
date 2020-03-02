@@ -1,0 +1,37 @@
+%import wh
+%include ('tpl/01.tpl', title = u'Query')
+
+  <body>
+<div class="row">
+    <div class="small-12 columns">
+        <a href="/" title="Стартовая страница" class="secondary button"><i class="fa fa-home"></i> Стартовая страница</a>
+        <a href="/query" class="button"><i class="fa fa-gear"></i> Выборка</a>
+
+        <span class="pull-right"><h3>Авторы сообщений</h3></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-12 columns">
+
+<table>
+%for n in query:
+<tr>
+<td><strong>{{n.msgfrom}}</strong></td>
+<td>{{n.cnt}}</td>
+<td><a href="/query?msgfrom={{n.msgfrom}}">сообщения от {{n.msgfrom}}</a></td>
+<td><a href="/query?msgto={{n.msgfrom}}">ответы для {{n.msgfrom}}</a></td>
+</tr>
+%end
+</table>
+
+    </div></div>
+
+
+    <script src="/s/js/jquery.min.js"></script>
+    <script src="/s/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+</body>
+</html>
