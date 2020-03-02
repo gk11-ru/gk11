@@ -63,6 +63,6 @@ def uweb(umod,rq,kuk):
     elif umod == 'me':
         u = check_auth(rq.uhash or kuk.uhash)
         if u:
-            return mydict(html=bottle.template('userbb/profile.html', u=u))
+            return mydict(html=bottle.template('userbb/profile.html', u=u),cookie={'uhash': u.uhash})
         else:
             return mydict(html=bottle.template('userbb/login.html', rq=rq))

@@ -118,7 +118,7 @@ def post_user(ea):
 @bosfor.post('/user/<umod>')
 def user_module(umod):
     out = userbb.uweb(umod, request.params, request.cookies)
-    if 'cookie' in out:
+    if 'cookie' in out and 'redir' in out:
         for k, v in out.cookie.items():
             response.set_cookie(k, v, path='/', max_age=7776000)
             return ('''<html><head>
@@ -130,6 +130,9 @@ def user_module(umod):
         request.content_type = 'text/plain; charset=utf-8'
         return out.txt
     else:
+        if 'cookie' in out:
+            for k, v in out.cookie.items():
+                response.set_cookie(k, v, path='/', max_age=7776000)
         return out.html
 
 
