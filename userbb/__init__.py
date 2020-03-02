@@ -46,6 +46,7 @@ def check_auth(uhash):
             if au.uname in roots:
                 au.update(root=True)
             return au
+    return mydict()
 
 
 def uweb(umod,rq,kuk):
